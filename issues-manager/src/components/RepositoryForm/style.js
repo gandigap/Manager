@@ -1,21 +1,32 @@
 import styled from 'styled-components'
 
 export const StyledRepositoryForm = styled.form`
-  margin: 40px auto;
-  max-width: 700px;
-  background-color: #999;
-`
-
-export const StyledRepositoryTitle = styled.h2`
-  font-size: 32px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const StyledRepositoryLabel = styled.label`
-  font-weight: bold;
+  color: #fff;
 `
 
-export const StyledRepositoryInput = styled.input`
+export const StyledRepositoryInputText = styled.input`
   margin: 4px;
   padding: 4px;
   border-radius: 5px;
+
+  &::placeholder {
+    font-style: italic;
+  }
+`
+
+export const StyledRepositoryInputSubmit = styled.input`
+  padding: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #999;
+  }
 `

@@ -1,16 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ApolloProvider } from '@apollo/client'
+import { BrowserRouter } from 'react-router-dom'
+
+import { client } from 'graphQL/client'
 
 import App from './App'
 import GlobalStyle from './globalStyles'
-import { client } from './graphQL/client'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-  <ApolloProvider client={client}>
-    <GlobalStyle />
-    <App />
-  </ApolloProvider>,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <GlobalStyle />
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>,
 )

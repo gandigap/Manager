@@ -1,4 +1,5 @@
 export const pageText = {
+  appTitle: 'GITHUB ISSUES',
   labelRepositoryUrl: 'Please enter repository url',
-  inputRepositoryPlaceholder: "Format 'owner/repository'",
+  inputRepositoryPlaceholder: 'owner/repository',
 }

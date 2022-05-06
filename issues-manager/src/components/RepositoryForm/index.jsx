@@ -3,25 +3,22 @@ import { pageText } from 'constant'
 
 import {
   StyledRepositoryForm,
-  StyledRepositoryInput,
+  StyledRepositoryInputSubmit,
+  StyledRepositoryInputText,
   StyledRepositoryLabel,
-  StyledRepositoryTitle,
 } from './style'
 
 const RepositoryForm = ({ handleChange, handleSubmit, inputValue }) => {
   return (
     <StyledRepositoryForm onSubmit={handleSubmit}>
-      <StyledRepositoryTitle>Title</StyledRepositoryTitle>
-      <div>
-        <StyledRepositoryLabel>{pageText.labelRepositoryUrl}</StyledRepositoryLabel>
-        <StyledRepositoryInput
-          type="text"
-          onChange={handleChange}
-          value={inputValue}
-          placeholder={pageText.inputRepositoryPlaceholder}
-        />
-      </div>
-      <input type="submit" value="Submit" />
+      <StyledRepositoryLabel>{pageText.labelRepositoryUrl}</StyledRepositoryLabel>
+      <StyledRepositoryInputText
+        type="text"
+        onChange={handleChange}
+        value={inputValue}
+        placeholder={pageText.inputRepositoryPlaceholder}
+      />
+      <StyledRepositoryInputSubmit type="submit" value="Submit" />
     </StyledRepositoryForm>
   )
 }
