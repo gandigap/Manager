@@ -2,24 +2,18 @@ import { gql } from '@apollo/client'
 
 export const GET_ISSUES = gql`
   query getIssues($ownerName: String!, $repositoryName: String!) {
-    repository(owner: $ownerName, name: $repositoryName) {
+    repository(name: $repositoryName, owner: $ownerName) {
       id
       name
-      issues(first: 10) {
+      issues(states: OPEN, first: 10) {
         edges {
           node {
             id
             title
-            author {
-              login
-            }
             body
+            number
             comments(first: 10) {
-              edges {
-                node {
-                  id
-                }
-              }
+              totalCount
             }
           }
         }
@@ -28,17 +22,61 @@ export const GET_ISSUES = gql`
   }
 `
 
-export const GET_CUSTOM_REPOSITORY = gql`
-  query getIssues($inputValue: String!) {
-    user(login: $inputValue) {
+export const GET_ISSUE = gql`
+  query getIssue($number: Int!, $ownerName: String!, $repositoryName: String!) {
+    repository(owner: $ownerName, name: $repositoryName) {
       id
       name
-      repositories(last: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
-        pageInfo {
-          endCursor
-          startCursor
+      issue(number: $number) {
+        body
+        comments(first: 10) {
+          edges {
+            node {
+              id
+              author {
+                login
+              }
+              body
+            }
+          }
         }
       }
     }
   }
 `
+
+/*query MyQuery {
+  gitHub(
+    auths: {
+      gitHubOAuthToken: "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"
+    }
+  ) {
+    repository(owner: "gandigap", name: "manager") {
+      issues(states: OPEN, first: 10) {
+        totalCount
+        edges {
+          node {
+            bodyText
+            title
+          }
+        }
+      }
+    }
+  }
+}
+ */
+
+/*query MyQuery {
+  gitHub(
+    auths: {
+      gitHubOAuthToken: "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"
+    }
+  ) {
+    repository(owner: "gandigap", name: "manager") {
+      issue(number: 1) {
+        body
+      }
+    }
+  }
+}
+ */
