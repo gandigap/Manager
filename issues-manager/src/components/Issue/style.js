@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledIssue = styled.div`
-  background-color: #999;
+  padding: 10px;
 `
 
 export const StyledIssueInfo = styled.div`

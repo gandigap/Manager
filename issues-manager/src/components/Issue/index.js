@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation, useLazyQuery, refetc } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
@@ -18,11 +18,15 @@ const Issue = () => {
   const [comment, setComment] = useState('')
   console.log(id, owner, repository, number)
 
-  const [addComment, { loadingComment, errorComment }] = useMutation(ADD_COMMENT, {
+  const [addComment, { newData, loadingComment, errorComment }] = useMutation(ADD_COMMENT, {
     variables: {
       idIssue: id,
       body: comment,
     },
+    refetchQueries: [
+      GET_ISSUE, // DocumentNode object parsed with gql
+      'GetComments', // Query name
+    ],
   })
 
   const [getIssue, { data, loading, error }] = useLazyQuery(GET_ISSUE, {
@@ -46,7 +50,7 @@ const Issue = () => {
     getIssue()
   }, [])
 
-  /* console.log(data, loading, error, 'data') */
+  console.log(newData, 'data')
 
   if (loadingComment) return 'Submitting...'
   if (errorComment) return `Submission error! ${errorComment.message}`

@@ -1,4 +1,6 @@
+import { pageText } from 'constant'
 import React from 'react'
+import { StyledCommentAuthor, StyledCommentBody, StyledCommentContainer } from './style'
 
 const ListIssueComments = ({ comments }) => {
   console.log(comments)
@@ -7,8 +9,13 @@ const ListIssueComments = ({ comments }) => {
     return (
       comments &&
       comments.map(({ node }) => {
-        console.log(node)
-        return <div key={node.id}>{node.body}</div>
+        console.log(node.author)
+        return (
+          <StyledCommentContainer key={node.id}>
+            <StyledCommentBody>{node.body}</StyledCommentBody>
+            <StyledCommentAuthor>{pageText.issueAuthor + node.author.login}</StyledCommentAuthor>
+          </StyledCommentContainer>
+        )
       })
     )
   }
