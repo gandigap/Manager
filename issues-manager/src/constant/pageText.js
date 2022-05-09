@@ -1,0 +1,15 @@
+export const pageText = {
+  appTitle: 'GITHUB ISSUES',
+  labelRepositoryUrl: 'Please enter repository url',
+  inputRepositoryPlaceholder: 'owner/repository',
+  inputRepositoryExample: 'Example "gandigap/Manager"',
+  issueTitle: 'Title: ',
+  issueAuthor: 'Author: ',
+  issueBody: 'Body: ',
+  issueComments: 'Comments: ',
+  linkBack: 'Back',
+  noComments: 'No comments',
+  pageNotFound: 'Page not found',
+  loading: 'Loading',
+  error: 'Loading',
+}

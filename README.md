@@ -1,2 +1,1 @@
-# Manager
-Github GraphQL API
+# Issues
