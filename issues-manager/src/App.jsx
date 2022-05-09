@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/issue/:id/:owner/:repository/:number" element={<IssuePage />} />
-        <Route path="*" element={<div>Not found page</div>} />
+        <Route path="*" element={<div>{pageText.pageNotFound}</div>} />
       </Routes>
     </StyledApp>
   )

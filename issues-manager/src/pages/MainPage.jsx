@@ -4,6 +4,8 @@ import { useLazyQuery } from '@apollo/client'
 import { GET_ISSUES } from 'graphQL/query'
 import RepositoryForm from 'components/RepositoryForm'
 import ListIssues from 'components/ListIssues'
+import { Spinner } from 'components/Spinner'
+import ErrorContainer from 'components/ErrorContainer'
 
 export const MainPage = () => {
   const [repositoryUrl, setRepositoryUrl] = useState('')
@@ -26,6 +28,9 @@ export const MainPage = () => {
     setInfoData({ owner, repos })
     getIssues()
   }
+
+  if (loading) return <Spinner />
+
   return (
     <div>
       <RepositoryForm
@@ -33,8 +38,7 @@ export const MainPage = () => {
         handleSubmit={submitRepositoryUrl}
         inputValue={repositoryUrl}
       />
-      {loading && <div>Loading</div>}
-      {error && <div>{error.message}</div>}
+      {error && <ErrorContainer errorMessage={error.message} />}
       <ListIssues
         issues={data?.repository?.issues?.edges}
         owner={infoData.owner}

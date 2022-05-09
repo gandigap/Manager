@@ -1,47 +1,54 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import { useMutation, useLazyQuery, refetc } from '@apollo/client'
-import { Link } from 'react-router-dom'
+import { useMutation, useLazyQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 
+import { ADD_COMMENT } from 'graphQL/mutations'
+import { GET_ISSUE } from 'graphQL/query'
+import { pageText } from 'constant'
+import { Spinner } from 'components/Spinner'
+import ErrorContainer from 'components/ErrorContainer'
+import InputSubmit from 'components/InputSubmit'
+import CustomLink from 'components/CustomLink'
+
+import ListIssueComments from './ListIssueComments'
 import {
-  StyledIssuCommentButton,
-  StyledIssuCommentInput,
+  StyledIssuCommentForm,
+  StyledIssuCommentInputText,
   StyledIssue,
   StyledIssueInfo,
 } from './style'
-import { ADD_COMMENT } from 'graphQL/mutations'
-import { GET_ISSUE } from 'graphQL/query'
-import ListIssueComments from './ListIssueComments'
 
 const Issue = () => {
   const { id, owner, repository, number } = useParams()
   const [comment, setComment] = useState('')
-  console.log(id, owner, repository, number)
 
-  const [addComment, { newData, loadingComment, errorComment }] = useMutation(ADD_COMMENT, {
-    variables: {
-      idIssue: id,
-      body: comment,
+  const [addComment, { loading: loadingAddComment, error: errorAddComment }] = useMutation(
+    ADD_COMMENT,
+    {
+      variables: {
+        idIssue: id,
+        body: comment,
+      },
+      refetchQueries: [GET_ISSUE],
     },
-    refetchQueries: [
-      GET_ISSUE, // DocumentNode object parsed with gql
-      'GetComments', // Query name
-    ],
-  })
+  )
 
-  const [getIssue, { data, loading, error }] = useLazyQuery(GET_ISSUE, {
-    variables: {
-      number: parseInt(number),
-      ownerName: owner,
-      repositoryName: repository,
-    },
-  })
+  const [getIssue, { data: dataIssue, loading: loadingGetIssue, error: errorGetIssue }] =
+    useLazyQuery(GET_ISSUE, {
+      variables: {
+        number: parseInt(number),
+        ownerName: owner,
+        repositoryName: repository,
+      },
+    })
 
   const changeComment = (e) => {
     setComment(e.target.value)
   }
 
   const sendComment = (e) => {
+    e.preventDefault()
     addComment()
     setComment('')
   }
@@ -50,19 +57,22 @@ const Issue = () => {
     getIssue()
   }, [])
 
-  console.log(newData, 'data')
+  if (loadingGetIssue || loadingAddComment) return <Spinner />
 
-  if (loadingComment) return 'Submitting...'
-  if (errorComment) return `Submission error! ${errorComment.message}`
   return (
     <StyledIssue>
-      <StyledIssueInfo>Issue</StyledIssueInfo>
-      <ListIssueComments comments={data?.repository?.issue?.comments?.edges}></ListIssueComments>
-      <StyledIssuCommentInput type="text" value={comment} onChange={changeComment} />
-      <StyledIssuCommentButton type="button" onClick={sendComment}>
-        Send
-      </StyledIssuCommentButton>
-      <Link to="/">Back</Link>
+      <StyledIssueInfo>{`Comments for Issue №${number} from ${owner}'s repository "${repository}"`}</StyledIssueInfo>
+      <ListIssueComments comments={dataIssue?.repository?.issue?.comments?.edges} />
+      <StyledIssuCommentForm onSubmit={sendComment}>
+        <StyledIssuCommentInputText type="text" value={comment} onChange={changeComment} />
+        <InputSubmit />
+      </StyledIssuCommentForm>
+      {(errorGetIssue || errorAddComment) && (
+        <ErrorContainer
+          errorMessage={errorGetIssue ? errorGetIssue.message : errorAddComment.message}
+        />
+      )}
+      <CustomLink path="/">{pageText.linkBack}</CustomLink>
     </StyledIssue>
   )
 }

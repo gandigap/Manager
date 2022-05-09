@@ -17,6 +17,10 @@ export const StyledListIssuesItem = styled.div`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #000;
+
+  &:hover {
+    color: #fff;
+  }
 `
 
 export const StyledListIssuesItemTitle = styled.h3`

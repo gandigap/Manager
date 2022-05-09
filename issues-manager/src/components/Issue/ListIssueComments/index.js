@@ -1,15 +1,19 @@
-import { pageText } from 'constant'
 import React from 'react'
-import { StyledCommentAuthor, StyledCommentBody, StyledCommentContainer } from './style'
+
+import { pageText } from 'constant'
+
+import {
+  StyledCommentAuthor,
+  StyledCommentBody,
+  StyledCommentContainer,
+  StyledCommentsList,
+} from './style'
 
 const ListIssueComments = ({ comments }) => {
-  console.log(comments)
-
   const renderComments = () => {
     return (
       comments &&
       comments.map(({ node }) => {
-        console.log(node.author)
         return (
           <StyledCommentContainer key={node.id}>
             <StyledCommentBody>{node.body}</StyledCommentBody>
@@ -20,11 +24,10 @@ const ListIssueComments = ({ comments }) => {
     )
   }
   return (
-    <div>
-      <p>List comments</p>
-      {renderComments()}
-    </div>
+    <StyledCommentsList>
+      {comments?.length ? renderComments() : pageText.noComments}
+    </StyledCommentsList>
   )
 }
 
-export default ListIssueComments
+export default React.memo(ListIssueComments)

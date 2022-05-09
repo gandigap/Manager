@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { pageText } from 'constant'
+import CustomLink from 'components/CustomLink'
 
 import {
-  StyledLink,
   StyledListIssuesItem,
   StyledListIssuesItemBody,
   StyledListIssuesItemComments,
@@ -14,7 +14,7 @@ const ListIssuesItem = ({ node, owner, repository }) => {
   const { title, body, id, comments, number } = node
 
   return (
-    <StyledLink to={`/issue/${id}/${owner}/${repository}/${number}`}>
+    <CustomLink path={`/issue/${id}/${owner}/${repository}/${number}`}>
       <StyledListIssuesItem>
         <StyledListIssuesItemTitle>{pageText.issueTitle + title}</StyledListIssuesItemTitle>
         <StyledListIssuesItemBody>{pageText.issueBody + body}</StyledListIssuesItemBody>
@@ -22,7 +22,7 @@ const ListIssuesItem = ({ node, owner, repository }) => {
           {pageText.issueComments + comments.totalCount}
         </StyledListIssuesItemComments>
       </StyledListIssuesItem>
-    </StyledLink>
+    </CustomLink>
   )
 }
 

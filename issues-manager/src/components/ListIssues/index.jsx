@@ -11,6 +11,7 @@ const ListIssues = ({ issues, owner, repository }) => {
       })
     )
   }
+
   return <StyledListIssues>{renderList()}</StyledListIssues>
 }
 

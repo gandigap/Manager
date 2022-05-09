@@ -9,6 +9,7 @@ export const StyledRepositoryForm = styled.form`
 
 export const StyledRepositoryLabel = styled.label`
   color: #fff;
+  font-size: 22px;
 `
 
 export const StyledRepositoryInputText = styled.input`
@@ -18,15 +19,5 @@ export const StyledRepositoryInputText = styled.input`
 
   &::placeholder {
     font-style: italic;
-  }
-`
-
-export const StyledRepositoryInputSubmit = styled.input`
-  padding: 2px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #999;
   }
 `

@@ -5,14 +5,17 @@ export const StyledIssue = styled.div`
 `
 
 export const StyledIssueInfo = styled.div`
-  display: flex;
-  flex-direction: column;
+  padding: 10px 0;
+  text-align: center;
+  forn-size: 22px;
 `
 
-export const StyledIssuCommentInput = styled.input`
-  display: flex;
-  flex-direction: column;
+export const StyledIssuCommentInputText = styled.input`
+  padding: 5px;
 `
-export const StyledIssuCommentButton = styled.button`
-  background: #fff;
+
+export const StyledIssuCommentForm = styled.form`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `

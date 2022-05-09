@@ -29,7 +29,7 @@ export const GET_ISSUE = gql`
       name
       issue(number: $number) {
         body
-        comments(first: 10) {
+        comments(last: 5) {
           edges {
             node {
               id
@@ -44,39 +44,3 @@ export const GET_ISSUE = gql`
     }
   }
 `
-
-/*query MyQuery {
-  gitHub(
-    auths: {
-      gitHubOAuthToken: "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"
-    }
-  ) {
-    repository(owner: "gandigap", name: "manager") {
-      issues(states: OPEN, first: 10) {
-        totalCount
-        edges {
-          node {
-            bodyText
-            title
-          }
-        }
-      }
-    }
-  }
-}
- */
-
-/*query MyQuery {
-  gitHub(
-    auths: {
-      gitHubOAuthToken: "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"
-    }
-  ) {
-    repository(owner: "gandigap", name: "manager") {
-      issue(number: 1) {
-        body
-      }
-    }
-  }
-}
- */
